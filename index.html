@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+       <h1>Ajax class</h1>
+       <ul id="lista"></ul>
+
+        <script>
+
+            const http = new XMLHttpRequest();
+
+            http.onreadystatechange = ()=> {
+                if (http.readyState == 4){
+                    if(http.status == 200){
+                        var users = JSON.parse(http.responseText);
+                        
+                       users.forEach(output);
+                       function output (item, index, array){
+                        
+                        var lista = document.getElementById('lista');
+                        var itemLista = document.createElement('li');
+                        var nome = item.name;
+
+                        itemLista.append(nome);
+                        lista.appendChild(itemLista);
+
+                       }
+                    }
+                }
+            }
+
+            http.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
+            http.send();
+
+        </script>
+    </body>
+</html>
